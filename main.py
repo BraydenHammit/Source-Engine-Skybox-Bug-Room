@@ -14,13 +14,48 @@ def ms(event):
     canvas.my = event.y
     canvas.mx = event.x
 
+def plus_size(_):
+    global player
+    if player['size'] >= 0:
+        player['size']-=5
+    else:
+        player['size']+=5
+
+def minus_size(_):
+    global player
+    if player['size'] >= 0:
+        player['size']+=5
+    else:
+        player['size']-=5
+
+def follow_alternate(_):
+    global player
+    if player['follow']:
+        player['follow'] = False
+    else:
+        player['follow'] = True
+
+def disco(_):
+    global player
+    if player['dis']:
+        player['dis'] = False
+    else:
+        player['dis'] = True
+
 player = {
-    'shape': canvas.create_oval(50,50,-50,-50,fill='red'),
-    'color': 'red',
+    'shape': canvas.create_oval(50,50,-50,-50,fill='#FF0000'),
+    'color': '#FF0000',
     'stamps': [],
-    'size': 50
+    'size': 50,
+    'follow': True,
+    'disNUM': 0,
+    'dis': False
     }
 
 canvas.bind('<Motion>',ms)
-root.after(16,lambda:move(root,player,canvas))
+root.bind('<Up>',minus_size)
+root.bind('<Down>',plus_size)
+root.bind('<space>',follow_alternate)
+root.bind('<q>',disco)
+root.after(1,lambda:move(root,player,canvas))
 root.mainloop()
