@@ -3,7 +3,8 @@ from extra_code.movement import move
 
 root = tk.Tk()
 root.title('Source Engine Skybox Bug Room')
-root.state('zoomed')
+try: root.state('zoomed')
+except: None
 root.config(bg='black')
 canvas = tk.Canvas(root,bg='grey40',bd=0,highlightbackground="black")
 canvas.pack(expand=True,fill='both')
